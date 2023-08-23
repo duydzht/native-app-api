@@ -33,8 +33,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.json());
-
 require('./routes')(app);
 
 module.exports = app;
