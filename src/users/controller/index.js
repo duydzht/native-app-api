@@ -2,25 +2,19 @@ const Bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const config = require('../../../config');
-const schemes = require('../models/mongoose');
+const User = require('../models/mongoose');
 
-module.exports.signUp = async (res, parameters) => {
-  const {
-    password,
-    passwordConfirmation,
-    email,
-    username,
-    name,
-    lastName,
-  } = parameters;
+module.exports.signUp = async (req, res) => {
+  const { password, passwordConfirmation, email, username, fullName, address } =
+    req.body;
 
   if (password === passwordConfirmation) {
-    const newUser = schemes.User({
+    const newUser = new User({
       password: Bcrypt.hashSync(password, 10),
       email,
       username,
-      name,
-      lastName,
+      fullName,
+      address,
     });
 
     try {
@@ -45,4 +39,30 @@ module.exports.signUp = async (res, parameters) => {
     status: 400,
     message: 'Passwords are different, try again!!!',
   });
+};
+
+module.exports.login = async (req, res) => {
+  const { username } = req.body;
+
+  try {
+    const user = await User.findOne({ username });
+
+    if (user) {
+      console.log(user);
+      res.json({
+        success: true,
+        data: user,
+      });
+    } else {
+      res.json({
+        success: false,
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+    });
+  }
 };

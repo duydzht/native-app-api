@@ -6,8 +6,11 @@ const schemas = {
     email: Joi.string().email().required(),
     password: Joi.string().required(),
     passwordConfirmation: Joi.string().required(),
-    name: Joi.string().required(),
-    lastName: Joi.string().required(),
+    fullName: Joi.string().required(),
+  }),
+  login: Joi.object().keys({
+    username: Joi.string().required(),
+    password: Joi.string().required(),
   }),
 };
 

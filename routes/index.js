@@ -4,8 +4,8 @@ const users = require('../src/users/routes');
 // const getData = require('../middlewares/getData');
 
 module.exports = (app) => {
-  app.use('/status', status);
-  app.use('/users', users);
+  app.use('/api/v1/status', status);
+  app.use('/api/v1/users', users);
   // app.use('/users', validateAuth.checkIfAuthenticated, getData.getGeoip, users);
   app.use('*', (req, res) => {
     res.send('Not found!!!');
