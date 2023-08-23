@@ -10,7 +10,7 @@ router.post(
   '/signup',
   validateSchemas.inputs(schemas.signUp, 'body'),
   (req, res) => {
-    controller.signUp(res, req.body);
+    controller.signUp(req, res);
   }
 );
 
