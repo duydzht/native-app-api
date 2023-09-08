@@ -7,7 +7,7 @@ const home = require('../src/home/routes');
 module.exports = (app) => {
   app.use('/api/v1/status', status);
   app.use('/api/v1/users', users);
-  app.use('/', home);
+  app.use('/home', home);
   // app.use('/users', validateAuth.checkIfAuthenticated, getData.getGeoip, users);
   app.use('*', (req, res) => {
     res.send('Not found!!!');
